@@ -1,0 +1,28 @@
+<% remote_form_for :class_designation,:url=>{:action=>"update_class_designation", :id=>@class_designation.id} do |c| %>
+
+  <div id="form-content">
+    <div class="label-field-pair">
+      <label for="name"><%= t('name') %></label>
+      <div class="text-input-bg"><%= c.text_field :name %></div>
+    </div>
+    <% if @course.gpa_enabled? %>
+      <div class="label-field-pair">
+        <label for="gpa"><%= t('cgpa') %></label>
+        <div class="text-input-bg"><%= c.text_field :cgpa %></div>
+      </div>
+    <% else %>
+      <div class="label-field-pair">
+        <label for="marks"><%= t('marks') %> (%)</label>
+        <div class="text-input-bg"><%= c.text_field :marks %></div>
+      </div>
+    <% end %>
+
+    <div class="extender"></div>
+
+    <div id="submit-button">
+      <%=submit_tag("►#{t('save')}") %>
+    </div>
+
+
+  </div>
+<% end %>

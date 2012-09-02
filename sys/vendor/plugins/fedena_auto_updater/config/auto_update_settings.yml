@@ -1,0 +1,5 @@
+settings:
+  fetch_url: "git.foradian.org/clients/fedena_intellisys.git" #Only HTTP supported(no need to add http://)
+  use_basic_auth: true
+  basic_auth_user: fedena_intellisys
+  basic_auth_pass: fedena_intellisys123

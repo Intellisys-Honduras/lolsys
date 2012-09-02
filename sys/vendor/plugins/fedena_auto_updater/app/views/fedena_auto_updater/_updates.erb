@@ -1,0 +1,94 @@
+<script type="text/javascript">
+  function clear_flash_notices(){
+  $$(".clearme").each(function(e){e.hide();});
+  Element.show('loader');
+  }//
+</script>
+
+<% loader_hash = {:type => :synchronous,:before=> "clear_flash_notices();",:success=> "Element.hide('loader')",:failure=>"alert(\"System Error\")"} %>
+
+<div class="box">
+  <div class="row">
+    <div class="col1">
+      <p>
+        Build trigger key
+      </p>
+    </div>
+    <div class="col2">
+      <p><%= @updater.build_trigger_key  %></p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class="col1">
+      <p>
+        Build trigger url
+      </p>
+    </div>
+    <div class="col2">
+      <p><%= build_trigger_fedena_auto_updater_url  %></p>
+    </div>
+  </div>
+  <% unless @updater.current_revision.blank? %>
+    <div class="row">
+      <div class="col1">
+        <p>
+          <%= "#{t('current')} #{t('revision')} "%>
+        </p>
+      </div>
+      <div class="col2">
+        <p><%= "#{@updater.current_revision[0..6]}"  %></p>
+      </div>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="col1">
+      <p>
+        <%= "#{t('last_updated_on')}" %>
+      </p>
+    </div>
+    <div class="col2">
+      <p>
+        <% if @last_update.blank? %>
+          <%= "No Updates yet" %>
+        <% else %>
+          <%= "#{@last_update.config_value}"  %>
+        <% end %>
+        <span>
+          <% if (@update_available and @update_available[0] == true) %>
+            <%= link_to_remote "#{t('update_now')}",loader_hash.merge({:url=>{:action=>"pull_changes"},:update=>"update"}),{:class=>"link_button"} %>
+          <% elsif @updater.check_local_git_repo_exists? %>
+            <%= link_to_remote "#{t('check_updates')}",loader_hash.merge({:url=>{:action=>"check_updates"},:update=>"update"}),{:class=>"link_button"} %>
+          <% end %>
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col1 h100">
+      &nbsp;
+    </div>
+    <div class="col2 h100">
+      <p id="loader" style ="display: none;"><%= t('please_wait') %>
+        <%= image_tag("fedena_auto_updater/update-loader.gif", :align => "absmiddle", :border => 0) %>
+      </p>
+      <% if @updater.check_local_git_repo_exists? %>
+        <% if  @update_available and @update_available[0] == true  %>
+          <p class="flash-success clearme"><%= t('new_update_available') %> -  <%=  "#{t('revision')} : #{@updater.update_revision[0..6]}" %></p>
+        <% elsif @update_available and @update_available[0] == :error  %>
+          <p class="flash-error clearme"><%= @update_available[1] %></p>
+        <% elsif defined?(@update_available) %>
+          <p class="flash-error clearme"><%= t('no_updates_available') %></p>
+        <% end %>
+        <% if defined?(message) %>
+          <p class="flash-<%=message[0]%> clearme" ><%= message[1] %></p>
+        <% end %>
+      <% else %>
+        <p class="flash-error">
+          <%= t('local_git_repo_not_setup') %>
+          <%= link_to_remote "Setup",loader_hash.merge({:url=>{:action=>"setup_git"},:update=>"update"}) %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div id="content-header">
+  <%=image_tag "fedena_auto_updater/update.png" %>
+  <h1><%= t('auto_updater') %></h1>
+  <h3><%= t('check_for_updates') %></h3>
+
+  <div id="app-back-button">
+    <a onclick="history.back(); return false;" href="#"><img border="0" src="/images/buttons/back.png?1315827795" alt="<%= t('back') %>" /></a>
+  </div>
+
+</div>
+<div id="update">
+
+  <%= render :partial=>"updates" %>
+
+</div>

@@ -1,0 +1,7 @@
+tmp/
+db/schema.rb
+config/database.yml
+config/initializers/wicked_pdf.rb
+log/*.log
+log/production.log
+log/development.log
