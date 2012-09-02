@@ -43,6 +43,13 @@ class ReminderController < ApplicationController
             :recipient_ids => recipients_array,
             :subject=>params[:reminder][:subject],
             :body=>params[:reminder][:body] ))
+
+        # Send External Mail
+        @test = User.find(recipients_array)
+        @test.each do |user|
+          Notifier.deliver_contact(user.email, params[:reminder][:subject],params[:reminder][:body])
+        end
+        
         flash[:notice] = "#{t('flash1')}"
         redirect_to :controller=>"reminder", :action=>"create_reminder"
       else
