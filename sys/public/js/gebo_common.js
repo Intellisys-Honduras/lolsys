@@ -292,7 +292,7 @@
 	//* style switcher
 	gebo_style_sw = {
 		init: function() {
-			$('body').append('<a class="ssw_trigger" href="javascript:void(0)"><i class="icon-cog icon-white"></i></a>');
+//			$('body').append('<a class="ssw_trigger" href="javascript:void(0)"><i class="icon-cog icon-white"></i></a>');
 			var defLink = $('#link_theme').clone();
 			
 			

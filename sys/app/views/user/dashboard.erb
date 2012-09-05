@@ -1,81 +1,69 @@
-<%-# Fedena
-#Copyright 2010 Foradian Technologies Private Limited
-#
-#This product includes software developed at
-#Project Fedena - http://www.projectfedena.org/
-#
-#Licensed under the Apache License, Version 2.0 (the "License");
-#you may not use this file except in compliance with the License.
-#You may obtain a copy of the License at
-#
-#  http://www.apache.org/licenses/LICENSE-2.0
-#
-#Unless required by applicable law or agreed to in writing,
-#software distributed under the License is distributed on an
-#"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#KIND, either express or implied.  See the License for the
-#specific language governing permissions and limitations
-#under the License. -%>
 
-<% cache News.cache_fragment_name do%>
-  <%= render :partial=>'news_bar' %>
-<% end %>
+<%# cache News.cache_fragment_name do%>
+<%#= render :partial=>'news_bar' %>
+<%# end %>
 
 <% unless flash[:notice].nil? %> <p class="flash-msg"> <%= flash[:notice] %> </p> <% end %>
 
-<div id="user_options">
-
+<div class="row-fluid">
   <% if @user.admin? %>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p>#{t('admission')}</p></div>", {:controller => "student", :action => "admission1"},
-        :class => "option_buttons", :id => "admission_button", :title => "#{t('admission_link_title')}"%>
+    <div class="span8">
+      <h3 class="heading">Config <small>last week</small></h3>
     </div>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p>#{t('student_details')}</p></div>", {:controller => "student", :action => "index"},
-        :class => "option_buttons", :id => "student_details_button", :title => "#{t('student_link_title')}"%>
-    </div>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p> #{t('manage_users')} </p></div>", {:controller => "user", :action => "index"},
-        :class => "option_buttons", :id => "manage_users_button", :title =>t('user_link_title') %>
-    </div>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p>#{t('manage_news')}</p></div>", {:controller => "news", :action => "index"},
-        :class => "option_buttons", :id => "manage_news_button",:title => t('news_link_title') %>
+    <div class="span8">
+      <ul class="dshb_icoNav tac">
+        <li>
+          <%= link_to t('admission'), {:controller => "student", :action => "admission1"},
+            :class => "option_buttons", :id => "admission_button", :title => "#{t('admission_link_title')}", :style => "background-image: url(/img/gCons/edit.png)"%>
+        </li>
+        <li>
+          <%= link_to t('student_details'), {:controller => "student", :action => "index"},
+            :class => "option_buttons", :id => "student_details_button", :title => t('student_link_title'), :style => "background-image: url(/img/gCons/edit.png)"%>
+        </li>
+        <li>
+          <%= link_to t('manage_users'), {:controller => "user", :action => "index"},
+            :class => "option_buttons", :id => "manage_users_button", :title =>t('user_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+        </li>
+        <li>
+          <%= link_to t('manage_news'), {:controller => "news", :action => "index"},
+            :class => "option_buttons", :id => "manage_news_button",:title => t('news_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+        </li>
+        <li>
+          <%= link_to t('examinations'), {:controller => "exam", :action => "index"},
+            :class => "option_buttons", :id => "examinations_button",:title => t('manage_examinations'), :style => "background-image: url(/img/gCons/edit.png)" %>
+        </li>
+        <li>
+          <%= link_to t('timetable_text'), {:controller => "timetable", :action => "index"},
+            :class => "option_buttons", :id => "timetable_button",:title => t('timetable_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+        </li>
+        <li>
+          <%= link_to t('attendance'), {:controller => "student_attendance", :action => "index"},
+            :class => "option_buttons", :id => "student_attendance_button", :title => t('attendance_link_title'), :style => "background-image: url(/img/gCons/edit.png)"  %>
+        </li>
+        <li>
+          <%= link_to t('settings'), {:controller => "configuration", :action => "index"},
+            :class => "option_buttons", :id => "settings_button", :title => t('setting_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+        </li>
 
-    </div>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p>#{t('examinations')}</p></div>", {:controller => "exam", :action => "index"},
-        :class => "option_buttons", :id => "examinations_button",:title => "          #{t('manage_examinations')}" %>
-    </div>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p>#{t('timetable_text')}</p></div>", {:controller => "timetable", :action => "index"},
-        :class => "option_buttons", :id => "timetable_button",:title => t('timetable_link_title') %>
-    </div>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p>#{t('attendance')}</p></div>", {:controller => "student_attendance", :action => "index"},
-        :class => "option_buttons", :id => "student_attendance_button", :title => t('attendance_link_title')  %>
-    </div>
-    <div class="button-box">
-      <%= link_to "<div class ='button-label'><p>#{t('settings')}</p></div>", {:controller => "configuration", :action => "index"},
-        :class => "option_buttons", :id => "settings_button", :title => t('setting_link_title') %>
-    </div>
+        <% if @config.include?('HR') %>
+          <li>
+            <%= link_to t('human_resources'), {:controller => "employee", :action => "hr"},
+              :class => "option_buttons", :id => "hr_button", :title => t('hr_link_title'), :style => "background-image: url(/img/gCons/edit.png)"%>
+          </li>
 
-    <% if @config.include?('HR') %>
-      <div class="button-box">
-        <%= link_to "<div class ='button-label'><p>#{t('human_resources')}</p></div>", {:controller => "employee", :action => "hr"},
-          :class => "option_buttons", :id => "hr_button", :title => t('hr_link_title')%>
-      </div>
+        <% end %>
 
-    <% end %>
-
-    <% if @config.include?('Finance') %>
-      <div class="button-box">
-        <%= link_to "<div class ='button-label'><p> #{t('finance_text')}</p></div>", {:controller => "finance", :action => "index"},
-          :class => "option_buttons", :id => "finance_button", :title => t('finance_link_title') %>
-      </div>
-    <% end %>
+        <% if @config.include?('Finance') %>
+          <li>
+            <%= link_to t('finance_text'), {:controller => "finance", :action => "index"},
+              :class => "option_buttons", :id => "finance_button", :title => t('finance_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
 
   <% elsif @user.student? or @user.parent?%>
+
 
     <div class="button-box">
       <%= link_to "<div class ='button-label'><p>#{t('my_profile')}</p></div>", {:controller => "student", :action => "profile", :id => @student.id},
@@ -263,8 +251,6 @@
   <% end %>
 
 </div>
-
-<div id="option_description"> </div>
 
 <script type="text/javascript">
   $$('#user_options .button-box').each(function(ele, index){
