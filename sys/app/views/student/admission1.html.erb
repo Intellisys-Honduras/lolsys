@@ -1,0 +1,220 @@
+<div class="row-fluid">
+  <div class="span12">
+    <% if @config.config_value == '0' %>
+      <% if @last_admitted_student.nil? %>
+        <div class="alert">
+          <a class="close" data-dismiss="alert">×</a>
+          <%= t('no_admission_notice') %>
+        </div>
+      <% else %>
+        <div class="alert">
+          <a class="close" data-dismiss="alert">×</a>
+          <%= t('admission_no_of_last_stud') %><%= @last_admitted_student.admission_no %>
+        </div>
+
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+<div class="span6">
+
+
+  
+  <% form_for(@student, :url => {:action=> 'admission1'}, :html=> {:multipart=>true, :class => 'form_validation_reg'}) do |s| %>
+    <%= error_messages_for 'student', :header_message => nil %>
+    <div class="formSep">
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_admission_no"><%= t('admission_number') %> <span class="f_req">*</span> </label>
+          <% unless @config.config_value == '0' or @last_admitted_student.nil? %>
+            <%= s.text_field :admission_no ,:class =>"span12", :value=> @last_admitted_student.admission_no.next%>
+          <% else %>
+            <%= s.text_field :admission_no, :class =>"span12" %>
+          <% end %>
+        </div>
+        <div class="span6">
+          <label for="student_admission_date"><%= t('admission_date') %> <span class="f_req">*</span> </label>
+          <div class="input-append date" id="dp2" name="student[admission_date]" data-date-format="dd/mm/yyyy">
+            <input class="span6" type="text" readonly="readonly" /><span class="add-on"><i class="splashy-calendar_day"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="heading">Personal Details</h3>
+    <div class="formSep">
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_grade"><%= t('first_name') %><span class="f_req">*</span> </label>
+          <%= s.text_field :first_name %>
+        </div>
+
+        <div class="span6">
+          <label for="student_grade"><%= t('middle_name') %></label>
+          <%= s.text_field :middle_name %>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_grade"><%= t('last_name') %><span class="f_req">*</span></label>
+          <%= s.text_field :last_name %>
+        </div>
+
+        <div class="span6">
+            <label for="student_date_of_birth"><%= t('date_of_birth') %> <span class="f_req">*</span> </label>
+        <div class="input-append date" id="dp1" name="student[date_of_birth]" data-date-format="dd/mm/yyyy">
+          <input type="text" readonly="readonly" /><span class="add-on"><i class="splashy-calendar_day"></i></span>
+        </div>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="row-fluid">
+        <label><span class="error_placement">Gender</span> <span class="f_req">*</span></label>
+        <label class="radio inline" for="student_gender_true">
+          <input type="radio" value="m" name="gender" />
+          Male
+        </label>
+        <label class="radio inline" for="student_gender_false">
+          <input type="radio" value="f" name="gender" />
+          Female
+        </label>
+      </div>
+
+
+    </div>
+
+    <div class="formSep">
+
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_grade"><%= t('course_and_batch') %></label>
+          <div class="text-input-bg"><%= select :student, :batch_id, Batch.active.map {|b| [b.full_name, b.id]} %></div>
+        </div>
+
+        <div class="span6">
+          <label for="student_blood_group"><%= t('blood_group') %></label>
+          <div class="text-input-bg"><%= select :student, :blood_group, ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"],{:prompt=> "#{t('unknown')}"} %></div>
+        </div>
+      </div>
+
+
+
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_birth_place"><%= t('birth_place') %></label>
+          <%= s.text_field :birth_place %>
+        </div>
+
+        <div class="span6">
+          <label for="student_nationality"><%= t("nationality") %></label>
+          <%= select :student, :nationality_id, Country.all.map {|c| [c.name, c.id]}, :selected=> @student.nationality_id || @selected_value.to_i %>
+        </div>
+      </div>
+
+
+       <div class="row-fluid">
+        <div class="span6">
+           <label for="student_birth_place"><%= t("mother_tongue") %></label>
+            <%= s.text_field :language %>
+        </div>
+
+         <div class="span6">
+         <label for="student_religion"><%= t('religion') %></label>
+         <%= s.text_field :religion %>
+         </div>
+        </div>
+
+      <div class="row-fluid">
+
+        <label for="student_category"><%= t('category') %></label>
+        <%= s.select :student_category_id, @categories.map {|c| [c.name, c.id]}, { :prompt => "#{t('select_a_category')}" } %>
+      </div>
+      </div>
+      
+    <h3 class="heading">Contact Details</h3>
+    <div class="formSep">
+      <div class="row-fluid">
+        <div class="span6">
+         <label for="student_city"><%= t('address_line') %>1</label>
+          <%= s.text_field :address_line1 %>
+        </div>
+
+        <div class="span6">
+          <label for="student_city"><%= t('address_line') %>2</label>
+          <%= s.text_field :address_line2 %>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span6">
+           <label for="student_city"><%= t('city') %></label>
+           <%= s.text_field :city %>
+        </div>
+
+        <div class="span6">
+          <label for="student_state"><%= t('state') %></label>
+          <%= s.text_field :state %>
+
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_pin_code"><%= t('zip') %></label>
+          <%= s.text_field :pin_code %>
+        </div>
+        <div class="span6">
+          <label for="student_country"><%= t('country') %></label>
+          <%= select :student, :country_id, Country.all.map {|c| [c.name, c.id]}, :selected=> @student.country_id || @selected_value.to_i %>
+        </div>
+
+      </div>
+
+
+      <div class="row-fluid">
+        <div class="span6">
+           <label for="student_phone1"><%= t('phone') %></label>
+            <%= s.text_field :phone1 %>
+        </div>
+        <div class="span6">
+           <label for="student_phone2"><%= t('mobile') %></label>
+            <%= s.text_field :phone2 %>
+        </div>
+      </div>
+
+      <div class="row-fluid">
+        <div class="span6">
+           <label for="student_email"><%= t('email') %></label>
+            <%= s.text_field :email %>
+        </div>
+        <div class="span6">
+           <% if @application_sms_enabled.is_enabled == true %>
+              <label for="student_sms"><%= t('enable_sms_feature') %></label>
+              <%= s.check_box :is_sms_enabled %>
+           <% end %>
+        </div>
+
+      </div>
+
+      <div class="row-fluid">
+        <input type="file" name="uni_file" id="uni_file"  class="uni_style" />
+      </div>
+
+
+
+      
+    </div>
+
+
+    
+
+
+    <%= submit_tag "", :value => "► #{t('save_and_proceed')}", :class => "submit_button" %>
+  <% end %>
+
+</div>
