@@ -8,21 +8,21 @@
 <div class="row-fluid">
   <% if @user.admin? %>
     <div class="span8">
-      <h3 class="heading">Config <small>last week</small></h3>
+      <h3 class="heading"><%=t('dashboard_text')%></h3>
     </div>
     <div class="span8">
       <ul class="dshb_icoNav tac">
         <li>
           <%= link_to t('admission'), {:controller => "student", :action => "admission1"},
-            :class => "option_buttons", :id => "admission_button", :title => "#{t('admission_link_title')}", :style => "background-image: url(/img/gCons/edit.png)"%>
+            :class => "option_buttons", :id => "admission_button", :title => "#{t('admission_link_title')}", :style => "background-image: url(/img/gCons/agent.png)"%>
         </li>
         <li>
           <%= link_to t('student_details'), {:controller => "student", :action => "index"},
-            :class => "option_buttons", :id => "student_details_button", :title => t('student_link_title'), :style => "background-image: url(/img/gCons/edit.png)"%>
+            :class => "option_buttons", :id => "student_details_button", :title => t('student_link_title'), :style => "background-image: url(/img/gCons/ID.png)"%>
         </li>
         <li>
           <%= link_to t('manage_users'), {:controller => "user", :action => "index"},
-            :class => "option_buttons", :id => "manage_users_button", :title =>t('user_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+            :class => "option_buttons", :id => "manage_users_button", :title =>t('user_link_title'), :style => "background-image: url(/img/gCons/search.png)" %>
         </li>
         <li>
           <%= link_to t('manage_news'), {:controller => "news", :action => "index"},
@@ -30,25 +30,25 @@
         </li>
         <li>
           <%= link_to t('examinations'), {:controller => "exam", :action => "index"},
-            :class => "option_buttons", :id => "examinations_button",:title => t('manage_examinations'), :style => "background-image: url(/img/gCons/edit.png)" %>
+            :class => "option_buttons", :id => "examinations_button",:title => t('manage_examinations'), :style => "background-image: url(/img/gCons/bar-chart.png)" %>
         </li>
         <li>
           <%= link_to t('timetable_text'), {:controller => "timetable", :action => "index"},
-            :class => "option_buttons", :id => "timetable_button",:title => t('timetable_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+            :class => "option_buttons", :id => "timetable_button",:title => t('timetable_link_title'), :style => "background-image: url(/img/gCons/bookmark.png)" %>
         </li>
         <li>
           <%= link_to t('attendance'), {:controller => "student_attendance", :action => "index"},
-            :class => "option_buttons", :id => "student_attendance_button", :title => t('attendance_link_title'), :style => "background-image: url(/img/gCons/edit.png)"  %>
+            :class => "option_buttons", :id => "student_attendance_button", :title => t('attendance_link_title'), :style => "background-image: url(/img/gCons/addressbook.png)"  %>
         </li>
         <li>
           <%= link_to t('settings'), {:controller => "configuration", :action => "index"},
-            :class => "option_buttons", :id => "settings_button", :title => t('setting_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+            :class => "option_buttons", :id => "settings_button", :title => t('setting_link_title'), :style => "background-image: url(/img/gCons/configuration.png)" %>
         </li>
 
         <% if @config.include?('HR') %>
           <li>
-            <%= link_to t('human_resources'), {:controller => "employee", :action => "hr"},
-              :class => "option_buttons", :id => "hr_button", :title => t('hr_link_title'), :style => "background-image: url(/img/gCons/edit.png)"%>
+            <%= link_to t('employees'), {:controller => "employee", :action => "hr"},
+              :class => "option_buttons", :id => "hr_button", :title => t('hr_link_title'), :style => "background-image: url(/img/gCons/multi-agents.png)"%>
           </li>
 
         <% end %>
@@ -56,15 +56,13 @@
         <% if @config.include?('Finance') %>
           <li>
             <%= link_to t('finance_text'), {:controller => "finance", :action => "index"},
-              :class => "option_buttons", :id => "finance_button", :title => t('finance_link_title'), :style => "background-image: url(/img/gCons/edit.png)" %>
+              :class => "option_buttons", :id => "finance_button", :title => t('finance_link_title'), :style => "background-image: url(/img/gCons/scale.png)" %>
           </li>
         <% end %>
       </ul>
     </div>
 
   <% elsif @user.student? or @user.parent?%>
-
-
     <div class="button-box">
       <%= link_to "<div class ='button-label'><p>#{t('my_profile')}</p></div>", {:controller => "student", :action => "profile", :id => @student.id},
         :class => "option_buttons", :id => "student_details_button", :title => "        #{t('view_your_profile')}"  %>
@@ -142,7 +140,6 @@
       <div class="button-box">
         <%= link_to "<div class ='button-label'><p>#{t('leaves')}</p></div>", {:controller => "employee", :action => "leave_management"},
           :class => "option_buttons", :id => "leaves_button", :title => "#{t('leave_management')}"%>
-
       </div>
     <%else%>
       <% if @config.include?('HR') %>

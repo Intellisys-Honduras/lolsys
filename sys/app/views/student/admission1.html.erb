@@ -1,23 +1,77 @@
-<%-# Fedena
-#Copyright 2010 Foradian Technologies Private Limited
-#
-#This product includes software developed at
-#Project Fedena - http://www.projectfedena.org/
-#
-#Licensed under the Apache License, Version 2.0 (the "License");
-#you may not use this file except in compliance with the License.
-#You may obtain a copy of the License at
-#
-#  http://www.apache.org/licenses/LICENSE-2.0
-#
-#Unless required by applicable law or agreed to in writing,
-#software distributed under the License is distributed on an
-#"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-#KIND, either express or implied.  See the License for the
-#specific language governing permissions and limitations
-#under the License. -%>
+
+<div class="row-fluid">
+  <div class="span12">
+    <% if @config.config_value == '0' %>
+      <% if @last_admitted_student.nil? %>
+        <div class="alert">
+          <a class="close" data-dismiss="alert">×</a>
+          <%= t('no_admission_notice') %>
+        </div>
+      <% else %>
+        <div class="alert">
+          <a class="close" data-dismiss="alert">×</a>
+          <%= t('admission_no_of_last_stud') %><%= @last_admitted_student.admission_no %>
+        </div>
+
+      <% end %>
+    <% end %>
+
+  </div>
+  <div class="span6">
 
 
+      <% form_for(@student, :url => {:action=> 'admission1'}, :html=> {:multipart=>true, :class => 'form_validation_reg'}) do |s| %>
+      <%= error_messages_for 'student', :header_message => nil %>
+
+    <div class="formSep">
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_admission_no"><%= t('admission_number') %> <span class="f_req">*</span> </label>
+          <% unless @config.config_value == '0' or @last_admitted_student.nil? %>
+              <%= s.text_field :admission_no ,:class =>"span12", :value=> @last_admitted_student.admission_no.next%>
+            <% else %>
+              <%= s.text_field :admission_no, :class =>"span12" %>
+            <% end %>
+        </div>
+        <div class="span6">
+        <label for="student_admission_date"><%= t('admission_date') %> <span class="f_req">*</span> </label>
+          <div class="input-append date" id="student[admission_date]" name="student[admission_date]" data-date-format="dd/mm/yyyy">
+            <input class="span6" type="text" readonly="readonly" /><span class="add-on"><i class="splashy-calendar_day"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="formSep">
+      <div class="row-fluid">
+        <div class="span6">
+          <label for="student_grade"><%= t('first_name') %><span class="f_req">*</span> </label>
+          <%= s.text_field :first_name %>
+        </div>
+
+        <div class="span6">
+           <label for="student_grade"><%= t('middle_name') %></label>
+           <%= s.text_field :middle_name %>
+        </div>
+      </div>
+
+    </div>
+        
+
+
+
+
+      </div>
+
+
+
+
+      </div>
+    <%end%>
+
+
+
+<!--
 <div id="content-header">
   <%= image_tag("/images/admission/admission_page_logo.jpg") %>
   <h1><%= t('admission') %></h1>
@@ -25,8 +79,8 @@
   <div id="app-back-button">
     <%= link_to_function image_tag("/images/buttons/back.png",:border => 0), "history.back()" %>
   </div>
-</div>
-
+</div> -->
+<!--
 <div id="page-yield">
   <% if @config.config_value == '0' %>
     <% if @last_admitted_student.nil? %>
@@ -38,8 +92,8 @@
 
   <% unless flash[:notice].nil? %>
     <p class="flash-msg"> <%= flash[:notice] %> </p>
-  <% end %>
-
+  <% end %> -->
+<!--
   <% form_for(@student, :url => {:action=> 'admission1'}, :html=> {:multipart=>true}) do |s| %>
     <%= error_messages_for 'student', :header_message => nil %>
 
@@ -68,7 +122,7 @@
           </div>
         </div>
 
-      </div>
+      </div>-->
 
       <span class="span-sub-heading"><%= t('personal_details') %></span>
       <hr class="sub-heading"></hr>
