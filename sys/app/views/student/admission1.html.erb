@@ -23,7 +23,6 @@
 
   <% form_for(@student, :url => {:action=> 'admission1'}, :html=> {:multipart=>true, :class => 'form_validation_reg'}) do |s| %>
     <%= error_messages_for 'student', :header_message => nil %>
-
     <div class="formSep">
       <div class="row-fluid">
         <div class="span6">
@@ -212,7 +211,7 @@
     </div>
 
 
-    <%end%>
+    
 
 
     <%= submit_tag "", :value => "► #{t('save_and_proceed')}", :class => "submit_button" %>
