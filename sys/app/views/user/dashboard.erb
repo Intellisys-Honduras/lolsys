@@ -240,19 +240,18 @@
   <% FedenaPlugin::AVAILABLE_MODULES.each do |mod| %>
     <% unless mod[:dashboard_menu].blank? %>
       <% if permitted_to? "#{mod[:dashboard_menu][:action]}".to_sym,"#{mod[:dashboard_menu][:controller]}".to_sym %>
-        <div class="button-box">
-          <%= link_to "<div class =\"button-label\"><p>#{t("#{mod[:dashboard_menu][:title]}")}</p></div>", {:controller => "#{mod[:dashboard_menu][:controller]}", :action => "#{mod[:dashboard_menu][:action]}"}, :class=>"#{mod[:dashboard_menu][:options][:class]}", :id=>"#{mod[:dashboard_menu][:options][:id]}", :title=>"#{t("#{mod[:dashboard_menu][:options][:title]}")}" %>
+        <div class="span8">
+          <ul class="dshb_icoNav tac">
+            <li>
+            <%= link_to t("#{mod[:dashboard_menu][:title]}"), {:controller => "#{mod[:dashboard_menu][:controller]}", :action => "#{mod[:dashboard_menu][:action]}"},:class=>"#{mod[:dashboard_menu][:options][:class]}", :id=>"#{mod[:dashboard_menu][:options][:id]}", :title=>"#{t("#{mod[:dashboard_menu][:options][:title]}")}",
+              :class => "option_buttons", :style => "background-image: url(/img/gCons/#{mod[:dashboard_menu][:options][:id]}.png)"%>
+            </li>
+          </ul>
         </div>
+        <%#*<div class="button-box">%>
+          <%#= link_to "<div class =\"button-label\"><p>#{t("#{mod[:dashboard_menu][:title]}")}</p></div>", {:controller => "#{mod[:dashboard_menu][:controller]}", :action => "#{mod[:dashboard_menu][:action]}"}, :class=>"#{mod[:dashboard_menu][:options][:class]}", :id=>"#{mod[:dashboard_menu][:options][:id]}", :title=>"#{t("#{mod[:dashboard_menu][:options][:title]}")}" %>
+        <%#*</div>%>
       <% end %>
     <% end %>
   <% end %>
-
 </div>
-
-<script type="text/javascript">
-  $$('#user_options .button-box').each(function(ele, index){
-    if(index%5 == 0){
-      ele.addClassName("left-button");
-    }
-  });
-</script>

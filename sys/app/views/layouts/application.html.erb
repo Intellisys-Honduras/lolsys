@@ -85,10 +85,6 @@
         </div>
       </div>
 
-      <!-- sidebar -->
-      <a href="javascript:void(0)" class="sidebar_switch on_switch ttip_r" title="Hide Sidebar">Sidebar switch</a>
-
-
       <script src="/js/jquery.min.js"></script>
       <!-- smart resize event -->
       <script src="/js/jquery.debouncedresize.min.js"></script>
@@ -98,6 +94,8 @@
       <script src="/js/jquery.cookie.min.js"></script>
       <!-- main bootstrap js -->
       <script src="/bootstrap/js/bootstrap.min.js"></script>
+      <!-- bootstrap plugins -->
+      <script src="/js/bootstrap.plugins.min.js"></script>
       <!-- tooltips -->
       <script src="/lib/qtip2/jquery.qtip.min.js"></script>
       <!-- jBreadcrumbs -->
@@ -107,8 +105,8 @@
       <!-- scrollbar -->
       <script src="/lib/antiscroll/antiscroll.js"></script>
       <script src="/lib/antiscroll/jquery-mousewheel.js"></script>
-      <!-- common functions -->
-      <script src="/js/gebo_common.js"></script>
+      <!-- lightbox -->
+      <script src="/lib/colorbox/jquery.colorbox.min.js"></script>
 
       <script src="/lib/jquery-ui/jquery-ui-1.8.20.custom.min.js"></script>
       <!-- touch events for jquery ui-->
@@ -127,10 +125,13 @@
       <!-- tag handler -->
       <script src="/lib/tag_handler/jquery.taghandler.min.js"></script>
       <!-- input spinners -->
-      <script src="js/forms/jquery.spinners.min.js"></script>
+      <script src="/js/forms/jquery.spinners.min.js"></script>
       <!-- styled form elements -->
-      <script src="lib/uniform/jquery.uniform.min.js"></script>
+      <script src="/lib/uniform/jquery.uniform.min.js"></script>
 
+
+      <!-- common functions -->
+      <%#*<script src="/js/gebo_common.js"></script>%>
 
       <!-- multi-column layout -->
       <script src="/js/jquery.imagesloaded.min.js"></script>
@@ -140,13 +141,14 @@
       <!-- dashboard functions -->
       <!--<script src="/javacripts/gebo_dashboard.js"></script>-->
 
+      <script src="/js/gebo_forms.js"></script>
+
       <script>
         $(document).ready(function() {
           //* show all elements & remove preloader
           setTimeout('$("html").removeClass("js")',1000);
         });
       </script>
-
     </div>
   </body>
 </html>
