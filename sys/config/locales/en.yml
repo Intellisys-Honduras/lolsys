@@ -770,6 +770,7 @@ en: # locale
   fees_paid: "Fees Paid"
   details: "Details"
   employee_id: "Employee ID"
+  employees: "Employees"
   dashboard_text: "Dashboard"
   connect: "Connect"
   fee_name: "Fee name"
